@@ -1,0 +1,28 @@
+def voo = 420;
+def msft = 347.5;
+def mmm = 101;
+def cvna = 45;
+def t = 15.5;
+def abbv = 139;
+def mo = 45;
+
+AddLabel(1,
+if GetSymbol() == "MMM" then AsDollars(mmm) else
+if GetSymbol() == "MSFT" then AsDollars(msft) else
+if GetSymbol() == "CVNA" then AsDollars(cvna) else
+if GetSymbol() == "ABBV" then AsDollars(abbv) else
+if GetSymbol() == "T" then AsDollars(t) else
+if GetSymbol() == "VOO" then AsDollars(voo) else
+if GetSymbol() == "MO" then AsDollars(mo) else
+if GetSymbol() == ".MSFT230721P345" then AsDollars(1.25) else
+"--",
+if GetSymbol() == "MMM" then (if close < mmm then color.RED else color.GREEN) else
+if GetSymbol() == "MSFT" then (if close < msft then color.RED else color.GREEN) else
+if GetSymbol() == "CVNA" then (if close < cvna then color.RED else color.GREEN) else
+if GetSymbol() == "ABBV" then (if close < abbv then color.RED else color.GREEN) else
+if GetSymbol() == "MO" then (if close < mo then color.RED else color.GREEN) else
+if GetSymbol() == "T" then (if close > t then color.RED else color.GREEN) else
+if GetSymbol() == "VOO" then (if close > voo then color.RED else color.GREEN) else
+color.GRAY);
+
+#TODO - def variables for each ticker containing the strike price for each one, and another var that is -1 or +1 to indicate put or call; write a loop to go through each of these tickers (does TS have arrays?) and alter the AddLabel to be green/red based upon a comparison btwn the strike and the current underlying price *and* the -1/+1 which tells you whether you want the underlying price to be > or < the strike - maybe also add the words 'call'/'put' to the output

@@ -1,0 +1,8 @@
+def collateral = GetStrike();
+def commission = 1.01; # @Vanguard
+def dte = GetDaysToExpiration();
+def apr = 0.10;
+def premium = apr*collateral*dte/365 + commission; 
+def last = close(PriceType.LAST);
+
+Addlabel(1, premium, if premium > (bid+ask)/2 then color.RED else color.GREEN);
