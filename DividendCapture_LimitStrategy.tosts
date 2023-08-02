@@ -1,0 +1,20 @@
+input DaysTillXdiv = 2;
+input DaysAfterXdiv = 1;
+
+def NextDividendBar = AbsValue(GetEventOffset(Events.DIVIDEND, 0));
+def PriorDividendBar = AbsValue(GetEventOffset(Events.DIVIDEND, -1));
+def NextDividend = if isNaN(NextDividendBar) then 0 else NextDividendBar;
+#AddLabel(NextDividend == DaysTillXdiv, "Dividend More than 30 days out", color.white);
+#AddLabel(NextDividend <= DaysTillXdiv-1 and NextDividend > 0, "Dividend in " + NextDividend + " days", Color.Red);
+
+AddOrder(OrderType.BUY_AUTO, 
+    NextDividend <= DaysTillXdiv and isNaN(EntryPrice()), 
+    name = "buy " + low + " | " + high);
+
+AddOrder(OrderType.SELL_TO_CLOSE, 
+    PriorDividendBar >= DaysAfterXdiv and EntryPrice() <> 0 and high > EntryPrice(), 
+    name="sell " + EntryPrice() + " | " + high);
+
+# TODO: how do I track the gains/losses from these orders?
+# so long as the sale happens, there is no loss
+# maybe should track length of time btwn buy and sell, mark that on the chart

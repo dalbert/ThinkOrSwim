@@ -1,0 +1,24 @@
+def voo = 420;
+def msft = 347.5; # PUT expired ITM last week, switched to CoveredCall this week
+def mmm = 101;
+def cvna = 45;
+def t = 15.5;
+def abbv = 139;
+def mo = 45;
+
+AddLabel(1,
+#if GetSymbol() == "MMM" then AsDollars(mmm) else
+if GetSymbol() == "MSFT" then AsDollars(msft) else
+if GetSymbol() == "ABBV" then AsDollars(abbv) else
+#if GetSymbol() == "T" then AsDollars(t) else
+#if GetSymbol() == "VOO" then AsDollars(voo) else
+if GetSymbol() == "MO" then AsDollars(mo) else
+if GetSymbol() == ".MSFT230721P345" then AsDollars(1.25) else
+"--",
+#if GetSymbol() == "MMM" then (if close < mmm then color.RED else color.GREEN) else
+if GetSymbol() == "MSFT" then (if close > msft then color.RED else color.GREEN) else
+if GetSymbol() == "ABBV" then (if close < abbv then color.RED else color.GREEN) else
+#if GetSymbol() == "MO" then (if close < mo then color.RED else color.GREEN) else
+#if GetSymbol() == "T" then (if close > t then color.RED else color.GREEN) else
+#if GetSymbol() == "VOO" then (if close > voo then color.RED else color.GREEN) else
+color.GRAY);

@@ -1,0 +1,6 @@
+AddLabel(IsOptionable(), "options yay!", color = Color.GREEN);
+AddLabel(!IsOptionable(), "taint no options on this stock");
+
+def expiration = GetYYYYMMDD();
+GetATMOption(GetSymbol(), expiration, OptionClass.PUT);
+AddOrder(OrderType.BUY_AUTO, no);

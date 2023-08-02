@@ -1,0 +1,7 @@
+#def strike = GetStrike();
+def commission = 1.01; # @Vanguard
+#def premium = (bid + ask)/2;
+def breakEvenPrice = GetStrike()  - ((bid + ask)/2) + commission/100;
+Addlabel(1, AsDollars(breakEvenPrice), 
+    if breakEvenPrice < close(GetUnderlyingSymbol(), priceType = PriceType.LAST) 
+    then color.GREEN else color.RED);
