@@ -7,14 +7,23 @@ def NextDividend = if isNaN(NextDividendBar) then 0 else NextDividendBar;
 #AddLabel(NextDividend == DaysTillXdiv, "Dividend More than 30 days out", color.white);
 #AddLabel(NextDividend <= DaysTillXdiv-1 and NextDividend > 0, "Dividend in " + NextDividend + " days", Color.Red);
 
-AddOrder(OrderType.BUY_AUTO, 
-    NextDividend <= DaysTillXdiv and isNaN(EntryPrice()), 
-    name = "buy " + low + " | " + high);
+def data = getYYYYMMDD();
+def year = Round(data/10000, 0);
+def month = Round((data % 10000) / 100, 0);
+def day = (data % 100);
+#addLabel(1, "date: " + month + "/" + day + "/" + AsPrice(year), color.white);
+
+AddOrder(OrderType.BUY_TO_OPEN, 
+    NextDividend == DaysTillXdiv and isNaN(EntryPrice()), 
+    name = low + " | " + high + " | " + month + "/" + day + "/" + AsPrice(year));
 
 AddOrder(OrderType.SELL_TO_CLOSE, 
     PriorDividendBar >= DaysAfterXdiv and EntryPrice() <> 0 and high > EntryPrice(), 
-    name="sell " + EntryPrice() + " | " + high);
+    name = EntryPrice() + " | " + high + " | " + month + "/" + day + "/" + AsPrice(year));
 
 # TODO: how do I track the gains/losses from these orders?
 # so long as the sale happens, there is no loss
 # maybe should track length of time btwn buy and sell, mark that on the chart
+
+# TODO: it would appear that when the next dividend had not been declared, eg. on the right side of 
+# the chart ie present day, NextDividendBar will be == 0 everyday 
