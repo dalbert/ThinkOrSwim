@@ -6,4 +6,4 @@ def apr = (premium - commission) / collateral * 365 / dte;
 #Addlabel(1, dte, if apr > .04 then color.GREEN else if apr > 0 then color.RED else color.GRAY);
 Addlabel(1, aspercent(apr) + " (" + dte + ")", if apr > GetYield() then color.GREEN else if apr > 0 then color.RED else color.GRAY);
 
-# TODO: if the PUT strike is > the current price, then calc the difference and subtract that from the premium 
+# TODO: if the PUT strike is > the current price (ie it's ITM), then calc the difference and subtract that from the premium 
