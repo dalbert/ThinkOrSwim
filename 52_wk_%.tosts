@@ -1,0 +1,1 @@
+AddLabel(1, asPercent(Round((close / Highest(high, 365) - 1))));
