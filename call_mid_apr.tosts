@@ -1,6 +1,6 @@
 def collateral = close(GetUnderlyingSymbol(), priceType = PriceType.LAST) * 100;
 def commission = 1.01; # @Vanguard
 def premium = (bid + ask)/2 * 100;
-def dte = GetDaysToExpiration();
+def dte = GetDaysToExpiration() - 1; # DTE appears to consistently be 1 too high
 def apr = (premium - commission) / collateral * 365 / dte; 
 Addlabel(1, aspercent(apr), if apr > .04 then color.GREEN else if apr > 0 then color.RED else color.GRAY);
