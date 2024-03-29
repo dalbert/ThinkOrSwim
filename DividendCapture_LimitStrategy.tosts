@@ -14,7 +14,7 @@ def day = (data % 100);
 #addLabel(1, "date: " + month + "/" + day + "/" + AsPrice(year), color.white);
 
 AddOrder(OrderType.BUY_TO_OPEN, 
-    NextDividend == DaysTillXdiv and isNaN(EntryPrice()), 
+    NextDividend == DaysTillXdiv and isNaN(EntryPrice()), tickColor = Color.RED,
     name = low + " | " + high + " | " + month + "/" + day + "/" + AsPrice(year));
 
 AddOrder(OrderType.SELL_TO_CLOSE, 
